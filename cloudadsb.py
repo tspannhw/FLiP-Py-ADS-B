@@ -92,7 +92,7 @@ if (len(args.auth_params) == 0 ):
 else:
    client = pulsar.Client(args.service_url, authentication=AuthenticationOauth2(args.auth_params))
 
-producer = client.create_producer(topic=args.topic ,properties={"producer-name": “adsb-rest”,”producer-id": “adsb-py" })
+producer = client.create_producer(topic=args.topic ,properties={"producer-name": "adsb-rest","producer-id": "adsb-py" })
 
 try:
     while True:
@@ -112,12 +112,9 @@ try:
         # cputemp = str(round(float(cputemp)) / 1000)
         # cputempf = str(round(9.0/5.0 * float(cputemp) + 32))
         # f.close()
-
         # usage = psutil.disk_usage("/")
         # end = time.time()
-
         # dateTimeStamp = datetime.fromtimestamp(timestamp, timezone.utc)
-
         # thermalRec.uuid = uniqueid
         # thermalRec.ipaddress = ipaddress
         # thermalRec.cputempf = int(cputempf)
@@ -136,11 +133,12 @@ try:
         # thermalRec.starttime = str(starttime)
         # thermalRec.datetimestamp = str(dateTimeStamp)
 
-       url_data = "http://localhost:8080/data/aircraft.json?_=" + str(uuid.uuid4())
-       response = requests.get(url_data).json()
+        url_data = "http://localhost:8080/data/aircraft.json?_=" + str(uuid.uuid4())
+        response = json.dumps(requests.get(url_data).json())
 
-       producer.send(response,partition_key=uniqueid)
-       print(“Sent aircraft data”)
+        producer.send(response.encode('utf-8'),partition_key=uniqueid)
+        print("Sent aircraft data: " + str(len(str(response))))
+        sleep(1)
 
 except KeyboardInterrupt:
     pass
