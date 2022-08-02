@@ -2,6 +2,18 @@
 
 Using Apache Pulsar with ADSB-B Feeds
 
+### Topics to Create (or let be autocreated in Apache Pulsar)
+
+````
+bin/pulsar-admin topics create persistent://public/default/adsbraw
+````
+
+### Consume Raw Data
+
+````
+bin/pulsar-client consume "persistent://public/default/adsbraw" -s adsbrawreader -n 0
+````
+
 ### Raw JSON Feeds
 
 #### Aircraft
@@ -60,6 +72,39 @@ aircraft
   
 ````
 
+### Data Sent
+
+````
+pulsar://pulsar1:6650
+persistent://public/default/adsbraw
+
+2022-08-02 16:42:25.601 INFO  [3069528448] ClientConnection:182 | [<none> -> pulsar://pulsar1:6650] Create ClientConnection, timeout=10000
+2022-08-02 16:42:25.601 INFO  [3069528448] ConnectionPool:96 | Created connection for pulsar://pulsar1:6650
+2022-08-02 16:42:25.606 INFO  [3032257600] ClientConnection:368 | [192.168.1.204:39188 -> 192.168.1.230:6650] Connected to broker
+2022-08-02 16:42:25.611 INFO  [3032257600] HandlerBase:64 | [persistent://public/default/adsbraw-partition-0, ] Getting connection from pool
+2022-08-02 16:42:25.613 INFO  [3032257600] ClientConnection:182 | [<none> -> pulsar://pulsar1:6650] Create ClientConnection, timeout=10000
+2022-08-02 16:42:25.613 INFO  [3032257600] ConnectionPool:96 | Created connection for pulsar://127.0.0.1:6650
+2022-08-02 16:42:25.618 INFO  [3032257600] ClientConnection:370 | [192.168.1.204:39190 -> 192.168.1.230:6650] Connected to broker through proxy. Logical broker: pulsar://127.0.0.1:6650
+2022-08-02 16:42:25.625 INFO  [3032257600] ProducerImpl:189 | [persistent://public/default/adsbraw-partition-0, ] Created producer on broker [192.168.1.204:39190 -> 192.168.1.230:6650]
+Sent aircraft data: 10068
+Sent aircraft data: 10106
+Sent aircraft data: 9836
+Sent aircraft data: 9833
+Sent aircraft data: 9834
+Sent aircraft data: 9831
+Sent aircraft data: 9829
+Sent aircraft data: 10011
+Sent aircraft data: 9953
+Sent aircraft data: 9955
+Sent aircraft data: 9937
+Sent aircraft data: 9935
+Sent aircraft data: 9933
+^C2022-08-02 16:41:53.892 INFO  [3069352320] ClientImpl:495 | Closing Pulsar client with 1 producers and 0 consumers
+2022-08-02 16:41:53.892 INFO  [3069352320] ProducerImpl:686 | [persistent://public/default/adsbraw-partition-0, standalone-1-70] Closing producer for topic persistent://public/default/adsbraw-partition-0
+2022-08-02 16:41:53.895 INFO  [3032081472] ProducerImpl:729 | [persistent://public/default/adsbraw-partition-0, standalone-1-70] Closed producer
+2022-08-02 16:41:53.895 INFO  [3032081472] ClientConnection:1548 | [192.168.1.204:39050 -> 192.168.1.230:6650] Connection closed
+2022-08-02 16:41:53.895 INFO  [3032081472] ClientConnection:1548 | [192.168.1.204:39048 -> 192.168.1.230:6650] Connection closed
+````
 
 ### References
 
