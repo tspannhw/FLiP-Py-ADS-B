@@ -61,7 +61,7 @@ def get_cpu_temperature():
     return float(output[output.index('=') + 1:output.rindex("'")])
 
 #parse arguments
-parse = argparse.ArgumentParser(prog='cloudthermal.py')
+parse = argparse.ArgumentParser(prog='cloudadsb.py')
 parse.add_argument('-su', '--service-url', dest='service_url', type=str, required=True,
                    help='The pulsar service you want to connect to')
 parse.add_argument('-t', '--topic', dest='topic', type=str, required=True,
@@ -96,42 +96,9 @@ producer = client.create_producer(topic=args.topic ,properties={"producer-name":
 
 try:
     while True:
-        # currenttime = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-        # starttime = datetime.now().strftime('%m/%d/%Y %H:%M:%S')
-        # start = time.time()
-
         # Create unique id
         uniqueid = 'thrml_{0}_{1}'.format(randomword(3),strftime("%Y%m%d%H%M%S",gmtime()))
         uuid2 = '{0}_{1}'.format(strftime("%Y%m%d%H%M%S",gmtime()),uuid.uuid4())
-
-        # CPU Temp
-        # f = open("/sys/devices/virtual/thermal/thermal_zone0/temp","r")
-        # cputemp = str( f.readline() )
-        # cputemp = cputemp.replace('\n','')
-        # cputemp = cputemp.strip()
-        # cputemp = str(round(float(cputemp)) / 1000)
-        # cputempf = str(round(9.0/5.0 * float(cputemp) + 32))
-        # f.close()
-        # usage = psutil.disk_usage("/")
-        # end = time.time()
-        # dateTimeStamp = datetime.fromtimestamp(timestamp, timezone.utc)
-        # thermalRec.uuid = uniqueid
-        # thermalRec.ipaddress = ipaddress
-        # thermalRec.cputempf = int(cputempf)
-        # thermalRec.runtime =  int(round(end - start))
-        # thermalRec.host = os.uname()[1]
-        # thermalRec.hostname = host_name
-        # thermalRec.macaddress = psutil_iface('wlan0')
-        # thermalRec.endtime = '{0}'.format( str(end ))
-        # thermalRec.te = '{0}'.format(str(end-start))
-        # thermalRec.cpu = psutil.cpu_percent(interval=1)
-        # thermalRec.diskusage = "{:.1f} MB".format(float(usage.free) / 1024 / 1024)
-        # thermalRec.memory = psutil.virtual_memory().percent
-        # thermalRec.rowid = str(uuid2)
-        # thermalRec.systemtime = datetime.now().strftime('%m/%d/%Y %H:%M:%S')
-        # thermalRec.ts =  int( time.time() )
-        # thermalRec.starttime = str(starttime)
-        # thermalRec.datetimestamp = str(dateTimeStamp)
 
         url_data = "http://localhost:8080/data/aircraft.json?_=" + str(uuid.uuid4())
         response = json.dumps(requests.get(url_data).json())
