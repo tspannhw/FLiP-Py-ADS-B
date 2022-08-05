@@ -281,6 +281,11 @@ select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil,
 
 select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil, gva, sda, seen, rssi, emergency from aircraft;
 
+select max(aqi) as MaxAQI, min(aqi) as MinAQI, avg(aqi) as AvgAQI, count(aqi) as RowCount
+from aircraft 
+group by flight;
+
+
 ````
 
 ### Future Updates
@@ -300,6 +305,7 @@ select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil,
 * Sensors
 * Twitter in region
 * Primary key / composite key
+* Check squawk codes (7500 (unlawful interference), 7600 (communication failure) and 7700 (emergency))
 
 ### References
 
@@ -323,3 +329,7 @@ select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil,
 * https://opensky-network.org/api/states/all?lamin=40.270599&lomin=-74.522430&lamax=40.270599&lomax=-74.522430
 * https://openskynetwork.github.io/opensky-api/rest.html
 * https://github.com/tspannhw/airquality
+* https://www.faa.gov/air_traffic/publications/atpubs/atc_html/chap5_section_2.html
+* https://aviation.stackexchange.com/questions/60747/what-are-all-the-squawk-codes
+* https://en.wikipedia.org/wiki/List_of_transponder_codes
+
