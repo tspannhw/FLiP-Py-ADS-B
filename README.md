@@ -287,9 +287,11 @@ select altBaro,
        baroRate,
        mach, 
        hex, flight, lat, lon
-from aircraft ;
+from aircraft 
+where altBaro is not null;
 
 select max(altBaro) as MaxAltitudeFeet, min(altBaro) as MinAltitudeFeet, avg(altBaro) as AvgAltitudeFeet,
+       max(altGeom) as MaxGAltitudeFeet, min(altGeom) as MinGAltitudeFeet, avg(altGeom) as AvgGAltitudeFeet,
        max(gs) as MaxGroundSpeed, min(gs) as MinGroundSpeed, avg(gs) as AvgGroundSpeed, 
        count(altBaro) as RowCount, 
        hex as ICAO, flight as IDENT
