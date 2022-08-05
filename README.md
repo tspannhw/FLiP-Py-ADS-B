@@ -281,12 +281,18 @@ select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil,
 
 select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil, gva, sda, seen, rssi, emergency from aircraft;
 
-select max(aqi) as MaxAQI, min(aqi) as MinAQI, avg(aqi) as AvgAQI, count(aqi) as RowCount
+select max(alt_baro) as MaxAltitudeFeet, min(alt_baro) as MinAltitudeFeet, avg(alt_baro) as AvgAltitudeFeet, count(alt_baro) as RowCount, hex as ICAO, flight as IDENT
 from aircraft 
-group by flight;
+group by flight, hex;
 
 
 ````
+
+### Notes
+
+* field:   hex is ICAO identifier
+* field:   flight is IDENT identifier
+* field:   alt_baro is altitude in feet
 
 ### Future Updates
 
