@@ -277,6 +277,10 @@ Flink SQL> describe aircraft;
 +----------------+-----------------------+------+-----+--------+-----------+
 33 rows in set
 
+select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil, gva, sda, seen, rssi, emergency from aircraft;
+
+select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil, gva, sda, seen, rssi, emergency from aircraft;
+
 ````
 
 ### Future Updates
@@ -289,12 +293,13 @@ Flink SQL> describe aircraft;
 * Store to Pinot
 * Store to ScyllaDB
 * decodable query
+* Add OpenSkyNetwork Data
+* Join with airquality project
 * UUID
 * Photos
 * Sensors
 * Twitter in region
 * Primary key / composite key
-
 
 ### References
 
@@ -317,3 +322,4 @@ Flink SQL> describe aircraft;
 * https://dev.to/tspannhw/tracking-air-quality-with-apache-nifi-cloudera-data-science-workbench-pyspark-and-parquet-28c
 * https://opensky-network.org/api/states/all?lamin=40.270599&lomin=-74.522430&lamax=40.270599&lomax=-74.522430
 * https://openskynetwork.github.io/opensky-api/rest.html
+* https://github.com/tspannhw/airquality
