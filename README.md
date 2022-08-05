@@ -281,13 +281,20 @@ select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil,
 
 select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil, gva, sda, seen, rssi, emergency from aircraft;
 
-select max(alt_baro) as MaxAltitudeFeet, min(alt_baro) as MinAltitudeFeet, avg(alt_baro) as AvgAltitudeFeet,
+select altBaro,
+       gs,
+       altGeom,
+       baroRate,
+       mach, 
+       hex, flight, lat, lon
+from aircraft ;
+
+select max(altBaro) as MaxAltitudeFeet, min(altBaro) as MinAltitudeFeet, avg(altBaro) as AvgAltitudeFeet,
        max(gs) as MaxGroundSpeed, min(gs) as MinGroundSpeed, avg(gs) as AvgGroundSpeed, 
-       count(alt_baro) as RowCount, 
+       count(altBaro) as RowCount, 
        hex as ICAO, flight as IDENT
 from aircraft 
 group by flight, hex;
-
 
 ````
 
@@ -295,9 +302,11 @@ group by flight, hex;
 
 * field:   hex is ICAO identifier
 * field:   flight is IDENT identifier
-* field:   alt_baro is altitude in feet
+* field:   altBaro is altitude in feet
 * field:   lat, lon is latitude and longitude
 * field:   gs is ground speed in knots
+* field:   altGeom is altitude
+* Altitude (Barometric): 5,825 ft Altitude (Geometric): 
 
 ### Future Updates
 
