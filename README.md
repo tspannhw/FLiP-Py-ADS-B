@@ -69,7 +69,6 @@ aircraft
   lon (long optional)
   
   
-  
 ````
 
 ### Data Sent
