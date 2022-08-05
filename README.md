@@ -286,8 +286,7 @@ select altBaro,
        baroRate,
        mach, 
        hex, flight, lat, lon
-from aircraft 
-where altBaro is not null;
+from aircraft;
 
 select max(altBaro) as MaxAltitudeFeet, min(altBaro) as MinAltitudeFeet, avg(altBaro) as AvgAltitudeFeet,
        max(altGeom) as MaxGAltitudeFeet, min(altGeom) as MinGAltitudeFeet, avg(altGeom) as AvgGAltitudeFeet,
