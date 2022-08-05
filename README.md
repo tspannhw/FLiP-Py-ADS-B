@@ -281,7 +281,10 @@ select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil,
 
 select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil, gva, sda, seen, rssi, emergency from aircraft;
 
-select max(alt_baro) as MaxAltitudeFeet, min(alt_baro) as MinAltitudeFeet, avg(alt_baro) as AvgAltitudeFeet, count(alt_baro) as RowCount, hex as ICAO, flight as IDENT
+select max(alt_baro) as MaxAltitudeFeet, min(alt_baro) as MinAltitudeFeet, avg(alt_baro) as AvgAltitudeFeet,
+       max(gs) as MaxGroundSpeed, min(gs) as MinGroundSpeed, avg(gs) as AvgGroundSpeed, 
+       count(alt_baro) as RowCount, 
+       hex as ICAO, flight as IDENT
 from aircraft 
 group by flight, hex;
 
@@ -293,6 +296,8 @@ group by flight, hex;
 * field:   hex is ICAO identifier
 * field:   flight is IDENT identifier
 * field:   alt_baro is altitude in feet
+* field:   lat, lon is latitude and longitude
+* field:   gs is ground speed in knots
 
 ### Future Updates
 
@@ -338,4 +343,4 @@ group by flight, hex;
 * https://www.faa.gov/air_traffic/publications/atpubs/atc_html/chap5_section_2.html
 * https://aviation.stackexchange.com/questions/60747/what-are-all-the-squawk-codes
 * https://en.wikipedia.org/wiki/List_of_transponder_codes
-
+* https://github.com/briantwalter/spark1090
