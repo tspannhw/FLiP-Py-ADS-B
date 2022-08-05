@@ -160,6 +160,141 @@ bin/pulsar-admin functions create --auto-ack true --jar /opt/demo/java/pulsar-ad
 
 ````
 
+### Spark Structured Streaming SQL
+
+````
+
+val dfPulsar = spark.readStream.format("pulsar").option("service.url", "pulsar://pulsar1:6650").option("admin.url", "http://pulsar1:8080").option("topic", "persistent://public/default/aircraft").load()
+
+dfPulsar.printSchema()
+root
+ |-- altBaro: integer (nullable = true)
+ |-- altGeom: integer (nullable = true)
+ |-- baroRate: integer (nullable = true)
+ |-- category: string (nullable = true)
+ |-- emergency: string (nullable = true)
+ |-- flight: string (nullable = true)
+ |-- gs: double (nullable = true)
+ |-- gva: integer (nullable = true)
+ |-- hex: string (nullable = true)
+ |-- lat: double (nullable = true)
+ |-- lon: double (nullable = true)
+ |-- mach: double (nullable = true)
+ |-- messages: integer (nullable = true)
+ |-- mlat: array (nullable = true)
+ |    |-- element: struct (containsNull = false)
+ |-- nacP: integer (nullable = true)
+ |-- nacV: integer (nullable = true)
+ |-- navAltitudeMcp: integer (nullable = true)
+ |-- navHeading: double (nullable = true)
+ |-- navQnh: double (nullable = true)
+ |-- nic: integer (nullable = true)
+ |-- nicBaro: integer (nullable = true)
+ |-- rc: integer (nullable = true)
+ |-- rssi: double (nullable = true)
+ |-- sda: integer (nullable = true)
+ |-- seen: double (nullable = true)
+ |-- seenPos: double (nullable = true)
+ |-- sil: integer (nullable = true)
+ |-- silType: string (nullable = true)
+ |-- speed: double (nullable = true)
+ |-- squawk: integer (nullable = true)
+ |-- tisb: array (nullable = true)
+ |    |-- element: struct (containsNull = false)
+ |-- track: double (nullable = true)
+ |-- version: integer (nullable = true)
+ |-- __key: binary (nullable = true)
+ |-- __topic: string (nullable = true)
+ |-- __messageId: binary (nullable = true)
+ |-- __publishTime: timestamp (nullable = true)
+ |-- __eventTime: timestamp (nullable = true)
+ |-- __messageProperties: map (nullable = true)
+ |    |-- key: string
+ |    |-- value: string (valueContainsNull = true)
+
+
+val pQuery = dfPulsar.selectExpr("*").writeStream.format("console").option("truncate", false).start()
+
+
+````
+
+### Flink SQL
+
+````
+sdk use java 8.0.302-open
+./bin/sql-client.sh embedded --library /opt/flink/flink-release-1.13.2/flink-1.13.2/sqllib -e /opt/flink/flink-release-1.13.2/flink-1.13.2/conf/sql-client-conf.yaml
+
+CREATE CATALOG pulsar WITH (
+   'type' = 'pulsar',
+   'service-url' = 'pulsar://pulsar1:6650',
+   'admin-url' = 'http://pulsar1:8080',
+   'format' = 'json'
+);
+
+USE CATALOG pulsar;
+
+SHOW TABLES;
+
+describe aircraft;
+
+Flink SQL> describe aircraft;
++----------------+-----------------------+------+-----+--------+-----------+
+|           name |                  type | null | key | extras | watermark |
++----------------+-----------------------+------+-----+--------+-----------+
+|        altBaro |                   INT | true |     |        |           |
+|        altGeom |                   INT | true |     |        |           |
+|       baroRate |                   INT | true |     |        |           |
+|       category |                STRING | true |     |        |           |
+|      emergency |                STRING | true |     |        |           |
+|         flight |                STRING | true |     |        |           |
+|             gs |                DOUBLE | true |     |        |           |
+|            gva |                   INT | true |     |        |           |
+|            hex |                STRING | true |     |        |           |
+|            lat |                DOUBLE | true |     |        |           |
+|            lon |                DOUBLE | true |     |        |           |
+|           mach |                DOUBLE | true |     |        |           |
+|       messages |                   INT | true |     |        |           |
+|           mlat | ARRAY<ROW<> NOT NULL> | true |     |        |           |
+|           nacP |                   INT | true |     |        |           |
+|           nacV |                   INT | true |     |        |           |
+| navAltitudeMcp |                   INT | true |     |        |           |
+|     navHeading |                DOUBLE | true |     |        |           |
+|         navQnh |                DOUBLE | true |     |        |           |
+|            nic |                   INT | true |     |        |           |
+|        nicBaro |                   INT | true |     |        |           |
+|             rc |                   INT | true |     |        |           |
+|           rssi |                DOUBLE | true |     |        |           |
+|            sda |                   INT | true |     |        |           |
+|           seen |                DOUBLE | true |     |        |           |
+|        seenPos |                DOUBLE | true |     |        |           |
+|            sil |                   INT | true |     |        |           |
+|        silType |                STRING | true |     |        |           |
+|          speed |                DOUBLE | true |     |        |           |
+|         squawk |                   INT | true |     |        |           |
+|           tisb | ARRAY<ROW<> NOT NULL> | true |     |        |           |
+|          track |                DOUBLE | true |     |        |           |
+|        version |                   INT | true |     |        |           |
++----------------+-----------------------+------+-----+--------+-----------+
+33 rows in set
+
+````
+
+### Future Updates
+
+* Timestamps
+* Remove mlat and tisb
+* Pulsar SQL
+* Join with weather and airquality data from by lat/long
+* Store to Delta Lake, Iceberg, Hudi
+* Store to Pinot
+* Store to ScyllaDB
+* decodable query
+* UUID
+* Photos
+* Sensors
+* Twitter in region
+* Primary key / composite key
+
 
 ### References
 
@@ -173,3 +308,12 @@ bin/pulsar-admin functions create --auto-ack true --jar /opt/demo/java/pulsar-ad
 * https://community.cloudera.com/t5/Community-Articles/Ingesting-Flight-Data-ADS-B-USB-Receiver-with-Apache-NiFi-1/ta-p/247940
 * https://elmwoodelectronics.ca/blogs/news/tracking-and-logging-flights-with-ads-b-flight-aware-and-raspberry-pi
 * https://github.com/flightaware/piaware
+* https://github.com/erikbeebe/flink_adsb_stream
+* https://github.com/erikbeebe/flink_adsb_querystate
+* https://github.com/openskynetwork/java-adsb
+* https://openskynetwork.github.io/opensky-api/rest.html
+* https://github.com/openskynetwork/opensky-api
+* https://opensky-network.org/my-opensky
+* https://dev.to/tspannhw/tracking-air-quality-with-apache-nifi-cloudera-data-science-workbench-pyspark-and-parquet-28c
+* https://opensky-network.org/api/states/all?lamin=40.270599&lomin=-74.522430&lamax=40.270599&lomax=-74.522430
+* https://openskynetwork.github.io/opensky-api/rest.html
