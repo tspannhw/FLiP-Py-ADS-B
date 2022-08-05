@@ -129,6 +129,28 @@ key:[c480cd8e-a803-47fe-81b4-aafdec0f6b68], properties:[language=Java], content:
 ````
 bin/pulsar-admin functions status --name ADSB
 
+{
+  "numInstances" : 1,
+  "numRunning" : 1,
+  "instances" : [ {
+    "instanceId" : 0,
+    "status" : {
+      "running" : true,
+      "error" : "",
+      "numRestarts" : 0,
+      "numReceived" : 28,
+      "numSuccessfullyProcessed" : 28,
+      "numUserExceptions" : 0,
+      "latestUserExceptions" : [ ],
+      "numSystemExceptions" : 0,
+      "latestSystemExceptions" : [ ],
+      "averageLatency" : 144.23374035714286,
+      "lastInvocationTime" : 1659725881406,
+      "workerId" : "c-standalone-fw-127.0.0.1-8080"
+    }
+  } ]
+}
+
 
 bin/pulsar-admin functions stop --name ADSB --namespace default --tenant public
 bin/pulsar-admin functions delete --name ADSB --namespace default --tenant public
