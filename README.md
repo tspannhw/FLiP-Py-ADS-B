@@ -2,6 +2,25 @@
 
 Using Apache Pulsar with ADSB-B Feeds
 
+
+![LiveData](https://github.com/tspannhw/FLiP-Py-ADS-B/raw/main/airmap.png)
+
+
+![PulsarMan](https://github.com/tspannhw/FLiP-Py-ADS-B/raw/main/adsbpulsarman.png)
+
+### Start the ADSSB software and antenna
+
+![Run](https://github.com/tspannhw/FLiP-Py-ADS-B/raw/main/dump1090fa.png)
+
+### Check my station on the inet
+
+![Station](https://github.com/tspannhw/FLiP-Py-ADS-B/raw/main/feed1.png)
+
+![Station2](https://github.com/tspannhw/FLiP-Py-ADS-B/raw/main/feed2.png)
+
+![Map](https://github.com/tspannhw/FLiP-Py-ADS-B/blob/main/flightmap.png?raw=true)
+
+
 ### Topics to Create (or let be autocreated in Apache Pulsar)
 
 ````
@@ -353,3 +372,4 @@ group by flight, hex;
 * https://aviation.stackexchange.com/questions/60747/what-are-all-the-squawk-codes
 * https://en.wikipedia.org/wiki/List_of_transponder_codes
 * https://github.com/briantwalter/spark1090
+* https://github.com/tspannhw/pulsar-adsb-function
