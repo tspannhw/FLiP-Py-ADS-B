@@ -84,6 +84,286 @@ cd ..
 sh stop-everything.sh
 ```
 
+✅ Scenario: Pulsar Function for Parsing & Splitting JSON Data
+--------------------------------------------------------------
+
+*** Code:  [ADS-B Java Function](https://github.com/tspannhw/pulsar-adsb-function)
+
+This scenario checks two things. First, if KoP provides a truly Kafka-compatible API where third-party frameworks such as [Spring Boot](https://spring.io/projects/spring-boot) can connect with without deployment problems. Second, to check whether KoP is capable of mimic the distributed protocol from Kafka. Kafka is not just a one-directional typical client-server protocol. Instead, it is a bi-directional protocol where messages are exchanged from both parties. A good example is when a producer connects to the Kafka cluster using one bootstrap server endpoint, and the cluster keeps periodically updating that list back to the producer with metadata about the new cluster formation. Same for the consumer, which after joining a group, may be eventually removed by the cluster for the absence of valid heartbeats.
+
+To validate this scenario, two Apache Pulsar brokers with KoP enabled will be executed, and the microservice will use the endpoint of only one broker to bootstrap the cluster. When everything is up-and-running and working as expected, the broker being used by the microservice will be killed, and the assumption is that the microservice should fallback to the other available broker, and continue its execution. If that ever happens, it means that the bootstrap worked as expected, giving the specifications of how Kafka manages clusters and sends this information to its clients.
+
+1️⃣ Run the Spring Boot microservice
+
+bin/pulsar-admin schemas get persistent://public/default/aircraft
+
+### Schema
+
+````
+{
+  "version": 0,
+  "schemaInfo": {
+    "name": "aircraft",
+    "schema": {
+      "type": "record",
+      "name": "Aircraft",
+      "namespace": "dev.pulsarfunction.adsb",
+      "fields": [
+        {
+          "name": "altBaro",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "altGeom",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "baroRate",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "category",
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        {
+          "name": "emergency",
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        {
+          "name": "flight",
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        {
+          "name": "gs",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "gva",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "hex",
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        {
+          "name": "lat",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "lon",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "mach",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "messages",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "mlat",
+          "type": [
+            "null",
+            {
+              "type": "array",
+              "items": {
+                "type": "record",
+                "name": "Object",
+                "namespace": "java.lang",
+                "fields": []
+              },
+              "java-class": "java.util.List"
+            }
+          ]
+        },
+        {
+          "name": "nacP",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "nacV",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "navAltitudeMcp",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "navHeading",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "navQnh",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "nic",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "nicBaro",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "rc",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "rssi",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "sda",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "seen",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "seenPos",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "sil",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "silType",
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        {
+          "name": "speed",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "squawk",
+          "type": [
+            "null",
+            "int"
+          ]
+        },
+        {
+          "name": "tisb",
+          "type": [
+            "null",
+            {
+              "type": "array",
+              "items": "java.lang.Object",
+              "java-class": "java.util.List"
+            }
+          ]
+        },
+        {
+          "name": "track",
+          "type": [
+            "null",
+            "double"
+          ]
+        },
+        {
+          "name": "version",
+          "type": [
+            "null",
+            "int"
+          ]
+        }
+      ]
+    },
+    "type": "JSON",
+    "properties": {
+      "__alwaysAllowNull": "true",
+      "__jsr310ConversionEnabled": "false"
+    }
+  }
+}
+````
+
 # License
 
 This project is licensed under the [Apache 2.0 License](./LICENSE).
