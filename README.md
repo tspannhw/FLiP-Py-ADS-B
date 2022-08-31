@@ -256,61 +256,60 @@ SHOW TABLES;
 describe aircraft;
 
 Flink SQL> describe aircraft;
-+----------------+-----------------------+------+-----+--------+-----------+
-|           name |                  type | null | key | extras | watermark |
-+----------------+-----------------------+------+-----+--------+-----------+
-|        altBaro |                   INT | true |     |        |           |
-|        altGeom |                   INT | true |     |        |           |
-|       baroRate |                   INT | true |     |        |           |
-|       category |                STRING | true |     |        |           |
-|      emergency |                STRING | true |     |        |           |
-|         flight |                STRING | true |     |        |           |
-|             gs |                DOUBLE | true |     |        |           |
-|            gva |                   INT | true |     |        |           |
-|            hex |                STRING | true |     |        |           |
-|            lat |                DOUBLE | true |     |        |           |
-|            lon |                DOUBLE | true |     |        |           |
-|           mach |                DOUBLE | true |     |        |           |
-|       messages |                   INT | true |     |        |           |
-|           mlat | ARRAY<ROW<> NOT NULL> | true |     |        |           |
-|           nacP |                   INT | true |     |        |           |
-|           nacV |                   INT | true |     |        |           |
-| navAltitudeMcp |                   INT | true |     |        |           |
-|     navHeading |                DOUBLE | true |     |        |           |
-|         navQnh |                DOUBLE | true |     |        |           |
-|            nic |                   INT | true |     |        |           |
-|        nicBaro |                   INT | true |     |        |           |
-|             rc |                   INT | true |     |        |           |
-|           rssi |                DOUBLE | true |     |        |           |
-|            sda |                   INT | true |     |        |           |
-|           seen |                DOUBLE | true |     |        |           |
-|        seenPos |                DOUBLE | true |     |        |           |
-|            sil |                   INT | true |     |        |           |
-|        silType |                STRING | true |     |        |           |
-|          speed |                DOUBLE | true |     |        |           |
-|         squawk |                   INT | true |     |        |           |
-|           tisb | ARRAY<ROW<> NOT NULL> | true |     |        |           |
-|          track |                DOUBLE | true |     |        |           |
-|        version |                   INT | true |     |        |           |
-+----------------+-----------------------+------+-----+--------+-----------+
++------------------+-----------------------+------+-----+--------+-----------+
+|             name |                  type | null | key | extras | watermark |
++------------------+-----------------------+------+-----+--------+-----------+
+|         alt_baro |                   INT | true |     |        |           |
+|         alt_geom |                   INT | true |     |        |           |
+|        baro_rate |                   INT | true |     |        |           |
+|         category |                STRING | true |     |        |           |
+|        emergency |                STRING | true |     |        |           |
+|           flight |                STRING | true |     |        |           |
+|               gs |                DOUBLE | true |     |        |           |
+|              gva |                   INT | true |     |        |           |
+|              hex |                STRING | true |     |        |           |
+|              lat |                DOUBLE | true |     |        |           |
+|              lon |                DOUBLE | true |     |        |           |
+|             mach |                DOUBLE | true |     |        |           |
+|         messages |                   INT | true |     |        |           |
+|             mlat | ARRAY<ROW<> NOT NULL> | true |     |        |           |
+|            nac_p |                   INT | true |     |        |           |
+|            nac_v |                   INT | true |     |        |           |
+| nav_altitude_mcp |                   INT | true |     |        |           |
+|      nav_heading |                DOUBLE | true |     |        |           |
+|          nav_qnh |                DOUBLE | true |     |        |           |
+|              nic |                   INT | true |     |        |           |
+|         nic_baro |                   INT | true |     |        |           |
+|               rc |                   INT | true |     |        |           |
+|             rssi |                DOUBLE | true |     |        |           |
+|              sda |                   INT | true |     |        |           |
+|             seen |                DOUBLE | true |     |        |           |
+|        seen_post |                DOUBLE | true |     |        |           |
+|              sil |                   INT | true |     |        |           |
+|         sil_type |                STRING | true |     |        |           |
+|            speed |                DOUBLE | true |     |        |           |
+|           squawk |                   INT | true |     |        |           |
+|             tisb | ARRAY<ROW<> NOT NULL> | true |     |        |           |
+|            track |                DOUBLE | true |     |        |           |
+|          version |                   INT | true |     |        |           |
++------------------+-----------------------+------+-----+--------+-----------+
 33 rows in set
 
 select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil, gva, sda, seen, rssi, emergency from aircraft;
 
-select flight, lat, lon, messages, track, squawk, category, hex, gs, track, sil, gva, sda, seen, rssi, emergency from aircraft;
 
-select altBaro,
+select alt_baro,
        gs,
-       altGeom,
-       baroRate,
+       alt_geom,
+       baro_rate,
        mach, 
        hex, flight, lat, lon
 from aircraft;
 
-select max(altBaro) as MaxAltitudeFeet, min(altBaro) as MinAltitudeFeet, avg(altBaro) as AvgAltitudeFeet,
-       max(altGeom) as MaxGAltitudeFeet, min(altGeom) as MinGAltitudeFeet, avg(altGeom) as AvgGAltitudeFeet,
+select max(alt_baro) as MaxAltitudeFeet, min(alt_baro) as MinAltitudeFeet, avg(alt_baro) as AvgAltitudeFeet,
+       max(alt_geom) as MaxGAltitudeFeet, min(alt_geom) as MinGAltitudeFeet, avg(alt_geom) as AvgGAltitudeFeet,
        max(gs) as MaxGroundSpeed, min(gs) as MinGroundSpeed, avg(gs) as AvgGroundSpeed, 
-       count(altBaro) as RowCount, 
+       count(alt_baro) as RowCount, 
        hex as ICAO, flight as IDENT
 from aircraft 
 group by flight, hex;
