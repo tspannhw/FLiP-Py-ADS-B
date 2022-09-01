@@ -377,3 +377,19 @@ group by flight, hex;
 * https://github.com/briantwalter/spark1090
 * https://github.com/tspannhw/pulsar-adsb-function
 * https://youtu.be/0LMOglFN8ZA
+
+
+
+### Flight Info
+
+* search by ICAO24 (hex) address
+http://www.airframes.org/
+* http://www.airframes.org/resources.php
+* Photos by ident
+https://flightaware.com/photos/aircraft/N223TP
+* Search by ident
+https://registry.faa.gov/aircraftinquiry/Search/NNumberInquiry?error=N-Number%20is%20More%20than%205%20characters&nnumber=a78018
+
+* Aircraft US database https://www.faa.gov/licenses_certificates/aircraft_certification/aircraft_registry/releasable_aircraft_download
+
+
