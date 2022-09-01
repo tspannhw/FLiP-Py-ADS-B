@@ -372,3 +372,4 @@ group by flight, hex;
 * https://en.wikipedia.org/wiki/List_of_transponder_codes
 * https://github.com/briantwalter/spark1090
 * https://github.com/tspannhw/pulsar-adsb-function
+* https://youtu.be/0LMOglFN8ZA
