@@ -16,3 +16,53 @@ describe aircraft;
 describe aircraftweather;
 
 ````
+
+
+### Weather Stream
+
+````
+
+Raw JSON Weather Data
+{
+"noNamespaceSchemaLocation":null,
+"version":1.0,
+"credit":"NOAA's National Weather Service",
+"credit_URL":"https://weather.gov/",
+"image":
+{"url":"https://weather.gov/images/xml_logo.gif",
+"title":"NOAA's National Weather Service",
+"link":"https://www.weather.gov"},
+"suggested_pickup":"15 minutes after the hour",
+"suggested_pickup_period":60,
+"location":"Saguache, Saguache Municipal Airport, CO",
+"station_id":"K04V",
+"latitude":38.09722,
+"longitude":-106.16861,
+"observation_time":"Last Updated on Sep 12 2022, 4:15 pm MDT",
+"observation_time_rfc822":"Mon, 12 Sep 2022 16:15:00 -0600",
+"weather":"Fair",
+"temperature_string":"79.0 F (26.0 C)",
+"temp_f":79.0,
+"temp_c":26.0,
+"relative_humidity":8,
+"wind_string":
+"West at 6.9 MPH (6 KT)",
+"wind_dir":"West",
+"wind_degrees":250,
+"wind_mph":6.9,
+"wind_kt":6,
+"pressure_in":30.25,
+"dewpoint_string":"12.2 F (-11.0 C)",
+"dewpoint_f":12.2,
+"dewpoint_c":-11.0,
+"visibility_mi":10.0,
+"icon_url_base":"https://forecast.weather.gov/images/wtf/small/",
+"two_day_history_url":"https://www.weather.gov/data/obhistory/K04V.html",
+"icon_url_name":"skc.png",
+"ob_url":"https://www.weather.gov/data/METAR/K04V.1.txt",
+"disclaimer_url":"https://www.weather.gov/disclaimer.html",
+"copyright_url":"https://www.weather.gov/disclaimer.html",
+"privacy_policy_url":"https://www.weather.gov/notice.html"
+}
+
+````
