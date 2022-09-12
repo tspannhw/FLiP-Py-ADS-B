@@ -66,3 +66,51 @@ Raw JSON Weather Data
 }
 
 ````
+
+### Flink SQL Tables
+
+````
+
+describe aircraft;
++------------------+-----------------------+------+-----+--------+-----------+
+|             name |                  type | null | key | extras | watermark |
++------------------+-----------------------+------+-----+--------+-----------+
+|         alt_baro |                   INT | true |     |        |           |
+|         alt_geom |                   INT | true |     |        |           |
+|        baro_rate |                   INT | true |     |        |           |
+|         category |                STRING | true |     |        |           |
+|        emergency |                STRING | true |     |        |           |
+|           flight |                STRING | true |     |        |           |
+|               gs |                DOUBLE | true |     |        |           |
+|              gva |                   INT | true |     |        |           |
+|              hex |                STRING | true |     |        |           |
+|              lat |                DOUBLE | true |     |        |           |
+|              lon |                DOUBLE | true |     |        |           |
+|             mach |                DOUBLE | true |     |        |           |
+|         messages |                   INT | true |     |        |           |
+|             mlat | ARRAY<ROW<> NOT NULL> | true |     |        |           |
+|            nac_p |                   INT | true |     |        |           |
+|            nac_v |                   INT | true |     |        |           |
+| nav_altitude_mcp |                   INT | true |     |        |           |
+|      nav_heading |                DOUBLE | true |     |        |           |
+|          nav_qnh |                DOUBLE | true |     |        |           |
+|              nic |                   INT | true |     |        |           |
+|         nic_baro |                   INT | true |     |        |           |
+|               rc |                   INT | true |     |        |           |
+|             rssi |                DOUBLE | true |     |        |           |
+|              sda |                   INT | true |     |        |           |
+|             seen |                DOUBLE | true |     |        |           |
+|        seen_post |                DOUBLE | true |     |        |           |
+|              sil |                   INT | true |     |        |           |
+|         sil_type |                STRING | true |     |        |           |
+|            speed |                DOUBLE | true |     |        |           |
+|           squawk |                   INT | true |     |        |           |
+|             tisb | ARRAY<ROW<> NOT NULL> | true |     |        |           |
+|            track |                DOUBLE | true |     |        |           |
+|          version |                   INT | true |     |        |           |
++------------------+-----------------------+------+-----+--------+-----------+
+
+
+Join on aircraft.lon = X, aircraft.lat = Y
+
+````
