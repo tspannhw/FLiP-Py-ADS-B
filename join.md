@@ -114,3 +114,8 @@ describe aircraft;
 Join on aircraft.lon = X, aircraft.lat = Y
 
 ````
+
+#### Resources
+
+* https://github.com/tspannhw/pulsar-weather-function
+
